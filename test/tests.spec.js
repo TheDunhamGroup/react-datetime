@@ -78,9 +78,9 @@ describe('Datetime', () => {
 		expect(utils.isYearView(component)).toBeTruthy();
 
 		expect(utils.getNthYear(component, 0).hasClass('rdtDisabled')).toEqual(false);
-		expect(utils.getNthYear(component, 9).hasClass('rdtDisabled')).toEqual(true);
+		expect(utils.getNthYear(component, 10).hasClass('rdtDisabled')).toEqual(true);
 
-		utils.clickNthYear(component, 8);
+		utils.clickNthYear(component, 9);
 		expect(utils.getNthMonth(component, 4).hasClass('rdtDisabled')).toEqual(false);
 		expect(utils.getNthMonth(component, 5).hasClass('rdtDisabled')).toEqual(true);
 	});
