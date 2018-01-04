@@ -29,7 +29,9 @@ var Datetime = createClass({
 		open: TYPES.bool,
 		strictParsing: TYPES.bool,
 		closeOnSelect: TYPES.bool,
-		closeOnTab: TYPES.bool
+		closeOnTab: TYPES.bool,
+		defaultHour: TYPES.number,
+		defaultMinute: TYPES.number
 	},
 
 	getDefaultProps: function() {
@@ -82,6 +84,12 @@ var Datetime = createClass({
 			selectedDate.clone().startOf('month') :
 			this.localMoment().startOf('month')
 		;
+
+
+		if (!props.defaultValue) {
+			if (props.defaultHour) { viewDate.hour(props.defaultHour); }
+			if (props.defaultMinute) { viewDate.minute(props.defaultMinute); }
+		}
 
 		updateOn = this.getUpdateOn(formats);
 
