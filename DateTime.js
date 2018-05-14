@@ -85,7 +85,6 @@ var Datetime = createClass({
 			this.localMoment().startOf('month')
 		;
 
-
 		if (!props.defaultValue) {
 			if (props.defaultHour) { viewDate.hour(props.defaultHour); }
 			if (props.defaultMinute) { viewDate.minute(props.defaultMinute); }
@@ -129,6 +128,8 @@ var Datetime = createClass({
 			},
 			locale = this.localMoment( props.date, null, props ).localeData()
 			;
+
+
 
 		if ( formats.date === true ) {
 			formats.date = locale.longDateFormat('L');
@@ -252,8 +253,17 @@ var Datetime = createClass({
 			}
 		;
 		return function( e ) {
+			let newDefaultDate = me.state.viewDate.clone()[type](parseInt(e.target.getAttribute('data-value'), 10)).startOf(type);
+			if (me.props.defaultHour) {
+				newDefaultDate.hour(me.props.defaultHour);
+			}
+			if (me.props.defaultMinute) {
+				newDefaultDate.minute(me.props.defaultMinute);
+			}
+
+
 			me.setState({
-				viewDate: me.state.viewDate.clone()[ type ]( parseInt(e.target.getAttribute('data-value'), 10) ).startOf( type ),
+				viewDate: newDefaultDate,
 				currentView: nextViews[ type ]
 			});
 			me.props.onViewModeChange( nextViews[ type ] );
@@ -424,6 +434,7 @@ var Datetime = createClass({
                   ( Array.isArray( this.props.className ) ?
                   ' ' + this.props.className.join( ' ' ) : ' ' + this.props.className) : ''),
 			children = [];
+
 
 		if ( this.props.input ) {
 			var finalInputProps = assign({
